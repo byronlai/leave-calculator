@@ -69,6 +69,9 @@
       <label class="form-label" for="earn-rate-change-date">Date starting to have 14 days of VL</label>
       <input class="form-input-text" id="earn-rate-change-date" name="earn-rate-change-date" type="text" placeholder="yyyy-mm-dd" value="2018-06-01">
 
+      <label class="form-label" for="starting-balance">Starting leave balance</label>
+      <input class="form-input-text" id="starting-balance" name="starting-balance" type="text"  value="0">
+
       <label class="form-label" for="leave-records">Leave records</label>
       <textarea class="form-textarea" id="leave-records" name="leave-records" rows="6" placeholder="yyyy-mm-dd length">2018-04-16 1
 2018-05-03 0.5
@@ -183,7 +186,13 @@
 
         var leaveRecords = getLeaveRecords();
         var maxLeaveDate = maxDate(Object.keys(leaveRecords));
-        var leaveBalance = 0;
+        var leaveBalance = parseFloat(document.getElementById('starting-balance').value.trim());
+
+        if (isNaN(leaveBalance)) {
+          alert('Invalid starting leave balance');
+          return;
+        }
+
         var currentDate = startDate;
         var result = '';
         var totalNoPaid = 0;
